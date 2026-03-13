@@ -24,7 +24,7 @@ const fadeUp = {
 const features = [
     { icon: '🔒', label: 'Anonymous', desc: 'No sign-up needed' },
     { icon: '⚡', label: 'Instant', desc: 'Connect in seconds' },
-    { icon: '💨', label: 'Ephemeral', desc: 'Nothing is saved' },
+    { icon: '⏳', label: 'Ephemeral', desc: 'Nothing is saved' },
 ];
 
 export default function Landing({ onStart, onlineCount = 0 }) {
@@ -90,7 +90,7 @@ export default function Landing({ onStart, onlineCount = 0 }) {
                     className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/25"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:w-7 sm:h-7">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                     </svg>
                 </motion.div>
             </motion.div>
@@ -158,7 +158,7 @@ export default function Landing({ onStart, onlineCount = 0 }) {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                         >
-                            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                            <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                         </motion.svg>
                     </span>
                 </motion.button>
