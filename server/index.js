@@ -25,8 +25,18 @@ const PORT = process.env.PORT || 3000;
 
 let waitingQueue = [];
 
+// Helper to broadcast online count to all clients
+const broadcastOnlineCount = () => {
+  const count = io.engine.clientsCount;
+  io.emit('online_count', count);
+  console.log(`Online users: ${count}`);
+};
+
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
+
+  // Broadcast updated count to everyone
+  broadcastOnlineCount();
 
   socket.on('join_queue', () => {
     if (waitingQueue.find(user => user.id === socket.id)) return; 
@@ -65,6 +75,8 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     waitingQueue = waitingQueue.filter(user => user.id !== socket.id);
     console.log(`User disconnected: ${socket.id}`);
+    // Broadcast updated count to everyone
+    broadcastOnlineCount();
   });
 
   socket.on('disconnecting', () => {

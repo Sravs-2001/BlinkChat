@@ -30,7 +30,10 @@ export default {
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
+        'float-delayed': 'float 8s ease-in-out 2s infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
+        'spin-slow': 'spin 12s linear infinite',
+        'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
       keyframes: {
         float: {
@@ -41,6 +44,10 @@ export default {
           '0%': { opacity: '0.4' },
           '100%': { opacity: '1' },
         },
+      },
+      screens: {
+        'xs': '375px',
+        '3xl': '1920px',
       },
     },
   },

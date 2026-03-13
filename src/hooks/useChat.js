@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
 
 const ENDPOINT = import.meta.env.PROD ? window.location.origin : 'http://localhost:3000';
@@ -7,7 +7,23 @@ export default function useChat() {
   const [status, setStatus] = useState('landing'); // landing, waiting, chatting, ended
   const [messages, setMessages] = useState([]);
   const [roomId, setRoomId] = useState(null);
+  const [onlineCount, setOnlineCount] = useState(0);
   const socketRef = useRef();
+  // A persistent socket just to receive the online count on the landing page
+  const countSocketRef = useRef();
+
+  // Connect a lightweight socket on mount to listen for online_count
+  useEffect(() => {
+    countSocketRef.current = io(ENDPOINT);
+
+    countSocketRef.current.on('online_count', (count) => {
+      setOnlineCount(count);
+    });
+
+    return () => {
+      countSocketRef.current?.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -20,6 +36,10 @@ export default function useChat() {
 
     socket.on('connect', () => {
       console.log('Connected to server');
+    });
+
+    socket.on('online_count', (count) => {
+      setOnlineCount(count);
     });
 
     socket.on('chat_start', (data) => {
@@ -80,5 +100,5 @@ export default function useChat() {
     }, 100);
   };
 
-  return { status, messages, startChat, sendMessage, leaveChat, nextChat };
+  return { status, messages, onlineCount, startChat, sendMessage, leaveChat, nextChat };
 }
